@@ -1,22 +1,22 @@
 const Expo = require("expo-server-sdk").default;
 const expo = new Expo();
 
-const TOKEN = "";
+const TOKEN = process.argv[2];
 
-sendNotification(TOKEN);
 async function sendNotification(token) {
   if (Expo.isExpoPushToken(token)) {
     const notificationResponse = await expo.sendPushNotificationsAsync([
       {
         to: token,
-        title: "Info météo",
-        body: "Salut du serveur",
-        data: { infos: "1" },
-        sound: "default",
+        title: "Hello !",
+        body: "This is an expo notification",
+        data: { blabla: 123 },
       },
     ]);
-    console.log(notificationResponse);
+    console.log("Notification sent : ", notificationResponse);
   } else {
-    console.log("Token invalide");
+    console.log(`${token} is not an Expo token`);
   }
 }
+
+sendNotification(TOKEN);
